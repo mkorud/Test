@@ -23,9 +23,9 @@ jobs:
       run: |
         ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USERNAME }}@${{ secrets.SERVER_IP }} << 'EOF'
           # Buat directory jika belum ada
-          mkdir -p /home/deployer/app
-          cd /home/deployer/app
-          
+          mkdir -p /home/demo/app
+          cd /home/demo/app
+          touch data.txt
           # Pull changes
           # git pull origin main || git clone https://github.com/${{ github.repository }} .
           
