@@ -1,40 +1,29 @@
-name: Deploy to Local Server
+name: Deploy with Self-Hosted Runner
 
 on:
   push:
-    branches: [ main, master ]
-  pull_request:
-    branches: [ main, master ]
+    branches: [main, master]
+  workflow_dispatch:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted  # Gunakan self-hosted runner
     
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Setup SSH
-      uses: webfactory/ssh-agent@v0.8.0
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
       with:
-        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+        node-version: '18'
 
-    - name: Deploy to Server
+    - name: Install dependencies
       run: |
-        ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USERNAME }}@${{ secrets.SERVER_IP }} << 'EOF'
-          # Buat directory jika belum ada
-          mkdir -p /home/demo/app
-          cd /home/demo/app
-          touch data1.txt
-          # Pull changes
-          # git pull origin main || git clone https://github.com/${{ github.repository }} .
-          
-          # Install dependencies (contoh untuk Node.js)
-          # npm install
-          
-          # Build aplikasi
-          # npm run build
-          
-          # Restart service (sesuaikan dengan kebutuhan)
-          # sudo systemctl restart your-app-service
-        EOF
+        npm ci
+        npm run build
+
+    - name: Deploy application
+      run: |
+        sudo systemctl restart my-app
+        echo "Deployment completed!"
