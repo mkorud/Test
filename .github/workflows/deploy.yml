@@ -13,19 +13,9 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    #- name: Setup Node.js
-    #  uses: actions/setup-node@v3
-    # with:
-    #    node-version: '18'
-
-    #- name: Install dependencies
-    #  run: |
-    #    npm ci
-    #    npm run build
-
     - name: Deploy application
       run: |
-        mkdir /home/demo/testing
-        cd /home/demo/testing
-        touch /home/demo/testing/test.txt
+        cd /home/demo/testing/Test
+        git pull origin main
+        
         echo "Deployment completed!"
