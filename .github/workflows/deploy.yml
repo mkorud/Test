@@ -25,7 +25,7 @@ jobs:
 
     - name: Deploy application
       run: |
-        mkdir testing
-        cd testing
-        touch test.txt
+        mkdir /home/demo/testing
+        cd /home/demo/testing
+        touch /home/demo/testing/test.txt
         echo "Deployment completed!"
