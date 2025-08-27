@@ -27,14 +27,14 @@ jobs:
           cd /home/deployer/app
           
           # Pull changes
-          git pull origin main || git clone https://github.com/${{ github.repository }} .
+          # git pull origin main || git clone https://github.com/${{ github.repository }} .
           
           # Install dependencies (contoh untuk Node.js)
-          npm install
+          # npm install
           
           # Build aplikasi
-          npm run build
+          # npm run build
           
           # Restart service (sesuaikan dengan kebutuhan)
-          sudo systemctl restart your-app-service
+          # sudo systemctl restart your-app-service
         EOF
